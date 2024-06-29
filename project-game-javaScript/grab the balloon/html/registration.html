@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>הרשמה למשחק</title>
+    <style>
+        body {
+            background-image: url('../page/sky.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: center;
+        }
+        h1 {
+            font-size: 40px;
+        }
+        form {
+            font-weight: 200;
+            font-size: 30px;
+        }
+    </style>
+    <script>
+        function register() {
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("password").value;
+            var users = localStorage.getItem("users");
+            var userRecords = users ? JSON.parse(users) : [];
+            var newUser = {
+                name: name,
+                password: password
+            };
+            userRecords.push(newUser);
+            localStorage.setItem("users", JSON.stringify(userRecords));
+            console.log("Registration successful:", name, password);
+            alert("ההרשמה בוצעה בהצלחה! ");
+            window.location.href = "game.html";
+        }
+    </script>
+</head>
+
+<body>
+    <h1>נראה שאתה עדיין לא רשום אצלינו... קדימה! </h1>
+    <h1>הרשמה למשחק</h1>
+    <form>
+        <label for="name">שם:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="password">סיסמא:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="button" value="הרשמה" onclick="register()">
+    </form>
+</body>
+
+</html>

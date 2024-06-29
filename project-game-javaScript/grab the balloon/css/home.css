@@ -1,0 +1,38 @@
+.container {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 70px;
+}
+
+.links {
+    margin-top: 50px;
+}
+
+.links a {
+    margin: 0 50px;
+    text-decoration: none;
+    font-size: 50px;
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+#listing {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#listing li {
+    margin: 10px 0;
+}
+
+body {
+    background-image: url('../page/sky.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,115 @@
+body {
+    background-image: url('../page/sky.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.balloon {
+    position: absolute;
+    width: 150px;
+    height: 400px;
+    border-radius: 20%;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: bottom 3s linear;
+    cursor: pointer;
+    background-color: transparent;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.red {
+    background-image: url('../page/red.png');
+}
+
+.blue {
+    background-image: url('../page/blue.png');
+}
+
+.green {
+    background-image: url('../page/greensofy.png');
+}
+
+.yellow {
+    background-image: url('../page/yellow.png');
+}
+
+.double {
+    transform: scale(0.8);
+}
+
+#score {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 34px;
+    color: black;
+    border: 2px solid black;
+}
+
+#timer {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 34px;
+    color: black;
+    border: 2px solid black;
+}
+
+#game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    display: none;
+    border: 2px solid black;
+}
+
+#new-game-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+#level-up-btn {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+}
