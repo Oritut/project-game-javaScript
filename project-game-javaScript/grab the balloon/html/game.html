@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+
+<head>
+    <title>Balloon Game</title>
+    <link rel="stylesheet" href="../css/game.css">
+    <link rel="JavaScript" href="../js/game.js">
+</head>
+
+<body>
+    <div id="game-container"></div>
+    <div id="score">Score: 0</div>
+    <div id="timer">Time Remaining: 00:30</div>
+    <div id="game-over"></div>
+    <button id="new-game-btn" onclick="startNewGame()">New Game</button>
+    <button id="level-up-btn" onclick="startNewGame(true)">Level Up</button>
+
+    <script>
+
+        var score = 0;
+        var totalBalloons = 0;
+        var caughtBalloons = 0;
+        var timeLeft = 30;
+        var timerInterval;
+        var gameActive = true;
+        var doubleBalloons = false;
+        var redBalloons = 0;
+        var consecutiveNonRedBalloons = 0;
+
+        function createBalloon() {
+            if (!gameActive || totalBalloons >= 30) {
+                return;
+            }
+            var balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+
+            var colors = ['red', 'blue', 'green', 'yellow'];
+            var randomColor;
+
+            if (consecutiveNonRedBalloons < 3 || totalBalloons % 4 === 0) {
+                randomColor = colors[Math.floor(Math.random() * colors.length)];
+                if (randomColor === 'red') {
+                    consecutiveNonRedBalloons = 0;
+                } else {
+                    consecutiveNonRedBalloons++;
+                }
+            } else {
+                randomColor = 'red';
+                consecutiveNonRedBalloons = 0;
+            }
+
+            balloon.classList.add(randomColor);
+
+            if (doubleBalloons) {
+                balloon.classList.add('double');
+            }
+
+            balloon.addEventListener('click', function () {
+                if (balloon.classList.contains('red')) {
+                    score++;
+                    caughtBalloons++;
+                } else {
+                    score--;
+                }
+                balloon.parentNode.removeChild(balloon);
+                updateScore();
+            });
+
+            document.getElementById('game-container').appendChild(balloon);
+
+            setTimeout(function () {
+                balloon.style.bottom = '100%';
+            }, 100);
+
+
+            setTimeout(function () {
+                if (!balloon.parentNode) {
+                    return;
+                }
+                balloon.parentNode.removeChild(balloon);
+            }, 30000);
+
+            totalBalloons++;
+            if (randomColor === 'red') {
+                redBalloons++;
+            }
+
+        }
+        function updateScore() {
+            document.getElementById('score').textContent = 'הניקוד שלך: ' + score;
+        }
+
+        function updateTimer() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+
+            var formattedTime = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+            document.getElementById('timer').textContent = 'זמן שנשאר: ' + formattedTime;
+
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+                endGame();
+            }
+
+            timeLeft--;
+        }
+
+        function endGame() {
+            gameActive = false;
+            var gameOverElement = document.getElementById('game-over');
+            var successRate = ((caughtBalloons / redBalloons) * 100).toFixed(0);
+            gameOverElement.textContent = ' Game Over ' + ' תפסת: ' + score + ' מתוך: ' + redBalloons;
+            gameOverElement.style.display = 'block';
+            document.getElementById('new-game-btn').style.display = 'block';
+            document.getElementById('level-up-btn').style.display = 'block';
+        }
+
+        function startNewGame(levelUp = false) {
+            score = 0;
+            totalBalloons = 0;
+            caughtBalloons = 0;
+            redBalloons = 0;
+            timeLeft = 30;
+            gameActive = true;
+            doubleBalloons = levelUp;
+            document.getElementById('game-container').innerHTML = '';
+            document.getElementById('game-over').style.display = 'none';
+            document.getElementById('new-game-btn').style.display = 'none';
+            document.getElementById('level-up-btn').style.display = 'none';
+            updateScore();
+            timerInterval = setInterval(updateTimer, 1000);
+
+
+
+            var balloonCreationInterval = levelUp ? 500 : 1000;
+            var balloonInterval = setInterval(createBalloon, balloonCreationInterval);
+
+            setTimeout(function () {
+                clearInterval(balloonInterval);
+            }, 1000);
+        }
+
+        updateScore();
+        timerInterval = setInterval(updateTimer, 1000);
+        setInterval(createBalloon, 1500);
+
+
+    </script>
+</body>
+
+</html>

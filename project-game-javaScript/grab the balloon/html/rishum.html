@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration Page</title>
+    <style>
+        body {
+            background-image: url('../page/sky.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+
+        form {
+            font-weight: 200;
+            font-size: 30px;
+        }
+    </style>
+    <script>
+        function login() {
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("password").value;
+            var users = localStorage.getItem("users");
+            var userRecords = users ? JSON.parse(users) : [];
+            var matchedUser = userRecords.find(function (user) {
+                return user.name === name && user.password === password;
+            });
+
+            if (matchedUser) {
+                console.log("Login successful:", name, password);
+                alert("התחברת בהצלחה! קישור למשחק...");
+                window.location.href = "game.html";
+            } else {
+                console.log("המשתמש לא נמצא. מפנה לדף ההרשמה.");
+                alert("אתה לא רשום. מפנה לדף ההרשמה...");
+                window.location.href = "registration.html";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>התחברות למשחק</h1>
+    <form>
+        <label for="name">שם:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="password">סיסמא:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+
+        <input type="button" value="התחברות" onclick="login()">
+    </form>
+</body>
+
+</html>

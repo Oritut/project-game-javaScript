@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Home Page</title>
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ברוכים הבאים למשחק: <br> תפוס את הבלון🎈! </h1>
+        <div class="links">
+            <a href="rishum.html">למעבר למשחק</a>
+            <a href="odot.html">אודות המשחק</a>
+            <script src="script.js">
+                const listing = document.getElementById('listing');
+                const data = ['Item 1', 'Item 2', 'Item 3'];
+                data.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    listing.appendChild(li);
+                });
+            </script>
+</body>
+</html>
